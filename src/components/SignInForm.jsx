@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   field: {
     padding: 20,
     borderWidth: 1,
-    borderColor: theme.colors.secondary,
+    borderColor: theme.colors.border,
     margin: 15,
     marginTop: 10,
     borderRadius: 10,

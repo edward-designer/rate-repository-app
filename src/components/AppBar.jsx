@@ -1,35 +1,32 @@
-import { View, FlatList, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
+
 import Constants from "expo-constants";
+import theme from "../theme";
+
+import useGetMe from "../hooks/useGetMe";
 
 import AppBarTab from "./AppBarTab";
-import theme from "../theme";
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.barBackground,
-  },
-  tabs: {
+    height: 120,
     display: "flex",
-    flexBasis: 80,
-    flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-end",
+    flexDirection: "row",
   },
 });
 
-const tabs = ["Repositories", "SignIn"];
-
 const AppBar = () => {
+  const { isLoggedIn } = useGetMe();
+  console.log(isLoggedIn);
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
-        <FlatList
-          contentContainerStyle={styles.tabs}
-          data={tabs}
-          renderItem={({ item }) => <AppBarTab tab={item} />}
-          keyExtractor={(item) => item}
-        />
+        <AppBarTab tab="Repositories" />
+        {isLoggedIn ? <AppBarTab tab="SignOut" /> : <AppBarTab tab="SignIn" />}
       </ScrollView>
     </View>
   );
