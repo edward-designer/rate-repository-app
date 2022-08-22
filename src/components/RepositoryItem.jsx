@@ -1,6 +1,9 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, Pressable, StyleSheet } from "react-native";
+import * as Linking from "expo-linking";
+
 import NativeText from "./NativeText";
 import StatItem from "./StatItem";
+
 import theme from "../theme";
 
 const styles = StyleSheet.create({
@@ -8,6 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     padding: 10,
     display: "flex",
+    marginBottom: 10,
   },
   detailsCard: {
     display: "flex",
@@ -40,6 +44,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
   },
+  button: {
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#fff",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
 });
 
 const RepositoryItem = ({ item }) => {
@@ -50,7 +61,7 @@ const RepositoryItem = ({ item }) => {
     return count;
   };
   return (
-    <View style={styles.card}>
+    <View testID="repositoryItem" style={styles.card}>
       <View style={styles.detailsCard}>
         <Image
           style={styles.image}
@@ -74,6 +85,16 @@ const RepositoryItem = ({ item }) => {
         <StatItem count={parseStat(item.reviewCount)} type="Review" />
         <StatItem count={parseStat(item.ratingAverage)} type="Rating" />
       </View>
+      {item.url && (
+        <View>
+          <Pressable
+            onPress={() => Linking.openURL(item.url)}
+            style={styles.tag}
+          >
+            <NativeText style={styles.button}>Open in GitHub</NativeText>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };

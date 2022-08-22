@@ -1,9 +1,9 @@
-import { View, Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, ScrollView } from "react-native";
 
-import theme from "../theme";
+import theme from "../../theme";
 
-import NativeText from "./NativeText";
-import FormikTextInput from "./FormikTextInput";
+import NativeText from "../NativeText";
+import FormikTextInput from "../FormikTextInput";
 
 const styles = StyleSheet.create({
   field: {
@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignInForm = ({ onSubmit }) => {
+const SignUpForm = ({ onSubmit }) => {
   return (
-    <View>
+    <ScrollView>
       <FormikTextInput
         name="username"
         placeholder="Username"
@@ -40,17 +40,23 @@ const SignInForm = ({ onSubmit }) => {
         secureTextEntry
         style={styles.field}
       />
+      <FormikTextInput
+        name="passwordConfirmation"
+        placeholder="Password Confirmation"
+        secureTextEntry
+        style={styles.field}
+      />
       <Pressable onPress={onSubmit} style={styles.button}>
         <NativeText
           fontSize="subheading"
           fontWeight="bold"
           style={styles.buttonText}
         >
-          Sign In
+          Sign Up
         </NativeText>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

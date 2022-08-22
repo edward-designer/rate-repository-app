@@ -8,7 +8,7 @@ const theme = {
     textReverse: "#fff",
     barBackground: "#24292e",
     error: "#d73a4a",
-    border: "#ddd"
+    border: "#ddd",
   },
   fontSizes: {
     body: 14,
