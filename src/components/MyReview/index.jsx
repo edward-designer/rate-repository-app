@@ -1,10 +1,8 @@
 import { FlatList, View, StyleSheet } from "react-native";
-import { useParams } from "react-router-native";
 
 import NativeText from "../NativeText";
 
-import useRepository from "../../hooks/useRepository";
-import RepositoryItem from "../RepositoryItem";
+import useGetMe from "../../hooks/useGetMe";
 import ReviewItem from "../ReviewItem";
 import Separator from "../Separator";
 
@@ -18,11 +16,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const SingleRepository = () => {
-  const { id } = useParams();
-  const { repository, fetchMore, loading } = useRepository({
-    first: 2,
-    repositoryId: id,
+const MyReviews = () => {
+  const { reviews, fetchMore, loading } = useGetMe({
+    first: 3,
+    includeReviews: true,
   });
 
   const onEndReach = () => {
@@ -38,20 +35,14 @@ const SingleRepository = () => {
   }
   return (
     <FlatList
-      data={repository.reviews.edges}
+      data={reviews.edges}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={(item) => item.node.id}
-      ListHeaderComponent={() => (
-        <>
-          <RepositoryItem item={repository} />
-          <Separator />
-        </>
-      )}
       ItemSeparatorComponent={() => <Separator />}
       onEndReached={onEndReach}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={0.1}
     />
   );
 };
 
-export default SingleRepository;
+export default MyReviews;

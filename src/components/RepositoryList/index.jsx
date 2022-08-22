@@ -22,6 +22,7 @@ export const RepositoryListContainer = ({
   orderBy,
   orderDirection,
   setSearchKeyword,
+  onEndReach,
 }) => {
   const [display, setDisplay] = useState("");
   const navigate = useNavigate();
@@ -52,6 +53,8 @@ export const RepositoryListContainer = ({
         </Pressable>
       )}
       keyExtractor={(item) => item.id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
       ListHeaderComponent={
         <>
           <Searchbar
@@ -86,11 +89,16 @@ const RepositoryList = () => {
     orderDirection: "DESC",
   });
   const { orderBy, orderDirection } = order;
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 3,
     orderBy,
     orderDirection,
     searchKeyword,
   });
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   const selectOrder = (value) => {
     const [orderBy, orderDirection] = value.split(" ");
@@ -104,6 +112,7 @@ const RepositoryList = () => {
       orderDirection={orderDirection}
       searchKeyword={searchKeyword}
       setSearchKeyword={setSearchKeyword}
+      onEndReach={onEndReach}
     />
   );
 };

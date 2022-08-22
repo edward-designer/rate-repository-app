@@ -28,6 +28,7 @@ const AppBar = () => {
         {isLoggedIn ? (
           <>
             <AppBarTab tab="AddReview" />
+            <AppBarTab tab="MyReviews" />
             <AppBarTab tab="SignOut" />
           </>
         ) : (

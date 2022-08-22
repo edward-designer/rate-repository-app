@@ -75,7 +75,9 @@ const RepositoryItem = ({ item }) => {
           </NativeText>
           <NativeText>{item.description}</NativeText>
           <View style={{ alignSelf: "flex-start" }}>
-            <NativeText style={styles.tag}>{item.language}</NativeText>
+            <NativeText style={styles.tag}>
+              {item.language || "Not Specified"}
+            </NativeText>
           </View>
         </View>
       </View>
